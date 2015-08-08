@@ -10,6 +10,7 @@ import sys
 import os
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
+import urllib.robotparser
 
 __author__ = 'benji'
 __version__ = '1.0'
@@ -19,6 +20,7 @@ def main(argv):
 
     # Initalize URL variable at null by default
     url = ""
+    listOfEntries = []
 
     # Processing Args
 
@@ -52,7 +54,14 @@ def main(argv):
             print('\033[91mReason: ', e.reason)
             print("\033[00m")
         else:
-            print(response)
+            htmlPage = response.read()
+            response.close()
+            rp = urllib.robotparser.RobotFileParser()
+            rp.set_url(url)
+            rp.read()
+            print("\033[92m")
+            print(rp.default_entry)
+            print("\033[00m")
     except ValueError as e:
         print('\033[91mError url is incorrect or malformed, please begin your url with http:// \033[00m')
 
