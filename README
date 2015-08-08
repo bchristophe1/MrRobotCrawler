@@ -1,0 +1,3 @@
+This is a very Simple Python 3 Script which just check if a website have a "robots.txt" 
+File and read all entries of robots.txt file and expose what entries can be interesting for 
+a pentest.
