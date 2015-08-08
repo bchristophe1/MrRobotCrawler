@@ -20,7 +20,6 @@ def main(argv):
 
     # Initalize URL variable at null by default
     url = ""
-    listOfEntries = []
 
     # Processing Args
 
@@ -43,10 +42,12 @@ def main(argv):
             sys.exit()
 
     # Processing Request
+    # we use urllib.request for checking if the url is correct or not
+
     try:
         req = Request(url)
         try:
-            response = urlopen(req)
+            urlopen(req)
         except HTTPError as e:
             print('\033[91mError code:', e.code)
             print("\033[00m")
@@ -54,8 +55,7 @@ def main(argv):
             print('\033[91mReason: ', e.reason)
             print("\033[00m")
         else:
-            htmlPage = response.read()
-            response.close()
+            # Parsing the robots.txt file and display entries
             rp = urllib.robotparser.RobotFileParser()
             rp.set_url(url)
             rp.read()
